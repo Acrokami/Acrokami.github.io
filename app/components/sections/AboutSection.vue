@@ -1,17 +1,16 @@
 <template>
-  <section id="about" class="py-20 px-4 max-w-5xl mx-auto w-full scroll-mt-16">
+  <section id="about" class="py-16 md:py-20 px-4 max-w-5xl mx-auto w-full scroll-mt-16">
 
     <h2
       v-motion
       :initial="{ opacity: 0, y: 30 }"
       :enter="{ opacity: 1, y: 0, transition: { duration: 600 } }"
-      class="text-3xl md:text-4xl font-bold mb-10 text-center text-space-100"
+      class="text-3xl md:text-4xl font-bold mb-8 md:mb-10 text-center text-space-100"
     >
       <span class="text-space-600 mr-1">~/</span>
       <span class="text-emerald-500 mr-2">$</span>whoami
     </h2>
 
-   
     <div
       v-motion
       :initial="{ opacity: 0, y: 30 }"
@@ -20,16 +19,15 @@
         y: 0,
         transition: { duration: 600, delay: 150 }
       }"
-      class="relative p-[1px] rounded-[28px] bg-gradient-to-b from-space-700/50 to-transparent mb-14"
+      class="relative p-[1px] rounded-[28px] bg-gradient-to-b from-space-700/50 to-transparent mb-12 md:mb-14"
     >
       <div class="absolute inset-0 bg-space-950/65 backdrop-blur-xl rounded-[28px] z-0"></div>
 
       <div
-        class="group relative z-10 flex flex-col lg:flex-row gap-8 p-8 md:p-10 rounded-[27px] bg-space-900/40 shadow-2xl border border-space-800/80 items-center"
+        class="group relative z-10 flex flex-col lg:flex-row gap-6 md:gap-8 p-6 md:p-10 rounded-[27px] bg-space-900/40 shadow-2xl border border-space-800/80 items-center"
       >
-
         <div
-          class="flex flex-col gap-6 w-full lg:w-1/3 border-b lg:border-b-0 lg:border-r border-space-800 pb-8 lg:pb-0 lg:pr-8"
+          class="flex flex-col gap-5 md:gap-6 w-full lg:w-1/3 border-b lg:border-b-0 lg:border-r border-space-800 pb-6 lg:pb-0 lg:pr-8"
         >
           <div>
             <span class="text-space-400 text-xs font-mono uppercase tracking-wider">Identity</span>
@@ -56,7 +54,7 @@
             </p>
           </div>
 
-          <div class="pt-2">
+          <div class="pt-1 md:pt-2">
             <a
               href="https://leetcode.com/u/Acrokami/"
               target="_blank"
@@ -70,7 +68,6 @@
           </div>
         </div>
 
-
         <div class="w-full lg:w-2/3">
           <div
             @mouseenter="isTerminalHovered = true"
@@ -79,7 +76,7 @@
             class="rounded-2xl bg-space-950/95 border backdrop-blur-2xl shadow-2xl overflow-hidden cursor-pointer transition-all duration-500 transform-gpu"
             :class="
               isTerminalHovered || isTerminalActive
-                ? 'border-emerald-500/60 scale-[1.03] shadow-[0_10px_35px_rgba(16,185,129,0.15)] bg-space-950'
+                ? 'border-emerald-500/60 md:scale-[1.02] shadow-[0_10px_35px_rgba(16,185,129,0.15)] bg-space-950'
                 : 'border-space-800/80'
             "
           >
@@ -97,7 +94,7 @@
             </div>
 
             <div
-              class="p-6 font-mono text-xs md:text-sm space-y-3 transition-colors duration-500"
+              class="p-4 sm:p-6 font-mono text-xs md:text-sm space-y-3 transition-colors duration-500"
               :class="isTerminalHovered || isTerminalActive ? 'text-space-100' : 'text-space-300'"
             >
               <div class="flex items-center gap-2 text-space-400">
@@ -106,7 +103,7 @@
               </div>
 
               <p
-                class="font-light leading-relaxed pl-4 transition-colors duration-500"
+                class="font-light leading-relaxed pl-3 sm:pl-4 transition-colors duration-500 text-[11px] sm:text-xs md:text-sm"
                 :class="isTerminalHovered || isTerminalActive ? 'text-white' : 'text-space-300'"
               >
                 I've been writing Java for about a year now, building a solid
@@ -125,7 +122,7 @@
                 <span class="text-space-200">echo $FOCUS</span>
               </div>
 
-              <p class="pl-4 text-space-300 leading-relaxed">
+              <p class="pl-3 sm:pl-4 text-space-300 leading-relaxed text-[11px] sm:text-xs md:text-sm">
                 Spring Ecosystem
                 <span class="text-space-600">·</span>
                 Distributed Systems
@@ -143,7 +140,6 @@
       </div>
     </div>
 
-
     <div
       v-motion
       :initial="{ opacity: 0, y: 30 }"
@@ -153,19 +149,17 @@
         transition: { duration: 600, delay: 300 }
       }"
     >
-
       <div class="flex items-center gap-3 mb-6 px-1 font-mono">
         <span class="text-emerald-400 text-sm">❯</span>
         <span class="text-space-200 text-sm">ls ~/stack</span>
         <span class="text-space-600 text-xs"># technologies I work with</span>
       </div>
 
-
       <div class="relative p-[1px] rounded-3xl bg-gradient-to-b from-space-700/50 to-transparent">
         <div class="absolute inset-0 bg-space-950/60 backdrop-blur-xl rounded-3xl"></div>
 
-        <div class="relative z-10 rounded-[23px] bg-space-900/40 border border-space-800 p-6 md:p-8">
-          <div class="space-y-8">
+        <div class="relative z-10 rounded-[23px] bg-space-900/40 border border-space-800 p-4 sm:p-6 md:p-8">
+          <div class="space-y-6 md:space-y-8">
             <div
               v-for="(category, catIndex) in skillCategories"
               :key="category.title"
@@ -177,46 +171,70 @@
                 transition: { duration: 500, delay: 400 + catIndex * 100 }
               }"
             >
-
-              <div class="flex items-center gap-3 mb-4">
-                <span class="text-xs font-mono uppercase tracking-widest text-space-500">
+              <div class="flex items-center gap-3 mb-3 md:mb-4">
+                <span class="text-[11px] md:text-xs font-mono uppercase tracking-widest text-space-500">
                   {{ category.title }}
                 </span>
                 <div class="h-px flex-1 bg-space-800/60"></div>
               </div>
 
-
-              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
                 <div
                   v-for="skill in category.skills"
                   :key="skill.name"
-                  class="group flex items-center gap-3 p-3.5 rounded-2xl bg-space-950/40 border border-space-800/60 hover:border-emerald-500/30 hover:bg-space-900/60 transition-all duration-300 cursor-default"
+                  @mouseenter="activeSkill = skill.name"
+                  @mouseleave="activeSkill = null"
+                  @click="activeSkill = activeSkill === skill.name ? null : skill.name"
+                  class="group flex items-center gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-2xl bg-space-950/40 border border-space-800/60 hover:border-emerald-500/30 hover:bg-space-900/60 transition-all duration-300 cursor-pointer select-none"
+                  :class="activeSkill === skill.name ? 'border-emerald-500/40 bg-space-900/70' : ''"
                 >
                   <div
-                    class="flex items-center justify-center w-9 h-9 shrink-0 rounded-xl bg-space-900/80 border border-space-800 group-hover:border-emerald-500/20 group-hover:scale-110 transition-all duration-300"
+                    class="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-xl bg-space-900/80 border border-space-800 group-hover:border-emerald-500/20 group-hover:scale-110 transition-all duration-300"
+                    :class="activeSkill === skill.name ? 'border-emerald-500/30 scale-110' : ''"
                   >
                     <Icon
                       :name="skill.icon"
-                      class="text-2xl text-space-400 group-hover:text-emerald-400 transition-colors duration-300"
+                      class="text-xl sm:text-2xl text-space-400 group-hover:text-emerald-400 transition-colors duration-300"
+                      :class="activeSkill === skill.name ? 'text-emerald-400' : ''"
                     />
                   </div>
-                  <span class="text-xs font-mono font-medium text-space-400 group-hover:text-space-100 transition-colors duration-300 truncate">
+                  <span
+                    class="text-[11px] sm:text-xs font-mono font-medium text-space-400 group-hover:text-space-100 transition-colors duration-300 truncate"
+                    :class="activeSkill === skill.name ? 'text-space-100' : ''"
+                  >
                     {{ skill.name }}
                   </span>
                 </div>
               </div>
             </div>
           </div>
+
+          <div
+            class="mt-6 px-4 py-3.5 rounded-xl bg-space-950/50 border border-space-800/60 font-mono text-xs md:text-sm min-h-[4rem] sm:min-h-[3rem] flex items-start sm:items-center gap-2 transition-all duration-300"
+            :class="activeSkill ? 'border-emerald-500/20' : ''"
+          >
+            <span class="text-emerald-400 shrink-0 mt-0.5 sm:mt-0">❯</span>
+            <div v-if="activeDetail" class="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span class="text-emerald-400 font-semibold">{{ activeSkill }}</span>
+              <span class="text-space-600">·</span>
+              <span class="text-space-500">{{ activeDetail.exp }}</span>
+              <span class="text-space-600">·</span>
+              <span class="text-space-300 text-[11px] sm:text-xs leading-relaxed">{{ activeDetail.desc }}</span>
+            </div>
+            <span v-else class="text-space-500 italic text-[11px] sm:text-xs">
+              Tap or hover over a technology to see experience & details...
+            </span>
+          </div>
+
         </div>
       </div>
     </div>
-
 
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 interface TechSkill {
   name: string;
@@ -226,6 +244,11 @@ interface TechSkill {
 interface SkillCategory {
   title: string;
   skills: TechSkill[];
+}
+
+interface SkillDetail {
+  exp: string;
+  desc: string;
 }
 
 const skillCategories: SkillCategory[] = [
@@ -260,6 +283,22 @@ const skillCategories: SkillCategory[] = [
     ]
   }
 ];
+
+const skillDetails: Record<string, SkillDetail> = {
+  'Java': { exp: '1+ year', desc: 'Core platform. OOP, collections, streams, concurrency, JVM internals' },
+  'Spring Boot': { exp: '1 year', desc: 'REST APIs, security, data JPA, Kafka integration, microservices' },
+  'PostgreSQL': { exp: '8 months', desc: 'Schema design, query optimization, indexing, transactions' },
+  'Redis': { exp: '6 months', desc: 'Caching, session storage, rate limiting, pub/sub patterns' },
+  'Apache Kafka': { exp: '6 months', desc: 'Event-driven architecture, stream processing, producers/consumers' },
+  'RabbitMQ': { exp: '4 months', desc: 'Message queuing, dead letter queues, retry policies' },
+  'Docker': { exp: '8 months', desc: 'Containerization, multi-stage builds, compose, CI/CD pipelines' },
+  'Vue 3': { exp: '6 months', desc: 'Component architecture, Composition API, Pinia state management' },
+  'TypeScript': { exp: '6 months', desc: 'Type safety, generics, utility types, full-stack type sharing' },
+  'Git': { exp: '1+ year', desc: 'Branching strategies, rebasing, hooks, monorepo workflows' },
+};
+
+const activeSkill = ref<string | null>(null);
+const activeDetail = computed(() => (activeSkill.value ? skillDetails[activeSkill.value] ?? null : null));
 
 const isTerminalHovered = ref(false);
 const isTerminalActive = ref(false);

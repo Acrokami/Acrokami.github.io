@@ -86,7 +86,7 @@ app/
 └── nuxt.config.ts
 
 
-
+```
 
 License
 

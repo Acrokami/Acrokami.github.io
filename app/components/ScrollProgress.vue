@@ -8,10 +8,17 @@
 <script setup lang="ts">
 const progress = ref(0);
 
+let ticking = false;
 const onScroll = () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  progress.value = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      progress.value = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      ticking = false;
+    });
+    ticking = true;
+  }
 };
 
 onMounted(() => {

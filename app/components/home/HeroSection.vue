@@ -1,12 +1,12 @@
 <template>
-  <section id="top" class="relative flex items-center justify-center min-h-[90vh] py-20 px-6 max-w-6xl mx-auto overflow-hidden scroll-mt-16">
+  <section id="top" class="relative flex items-center justify-center min-h-[90vh] py-16 md:py-20 px-4 md:px-6 max-w-6xl mx-auto overflow-hidden scroll-mt-16">
 
     <ParticlesBackground />
 
-    <div class="absolute inset-0 bg-gradient-to-r from-space-950 via-space-950/95 to-space-950/60 lg:to-transparent pointer-events-none z-[5]"></div>
-    <div class="absolute inset-0 bg-space-950/20 pointer-events-none z-[5]"></div>
+    <div class="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-space-950 via-space-950/95 to-space-950/80 md:to-transparent pointer-events-none z-[5]"></div>
+    <div class="absolute inset-0 bg-space-950/30 md:bg-space-950/20 pointer-events-none z-[5]"></div>
 
-    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center w-full">
 
       <div class="lg:col-span-8 xl:col-span-7 flex flex-col items-start text-left">
 
@@ -14,7 +14,7 @@
           v-motion
           :initial="{ opacity: 0, y: 20 }"
           :enter="{ opacity: 1, y: 0, transition: { duration: 600 } }"
-          class="flex items-center gap-2 mb-7 font-mono text-xs md:text-sm bg-space-950/60 px-3.5 py-1.5 rounded-lg border border-space-800/80 backdrop-blur-md"
+          class="flex items-center gap-2 mb-5 md:mb-7 font-mono text-xs md:text-sm bg-space-950/80 px-3 py-1.5 rounded-lg border border-space-800/80 backdrop-blur-md"
         >
           <span class="text-space-500">~/acrokami</span>
           <span class="text-emerald-500">❯</span>
@@ -26,7 +26,7 @@
           v-motion
           :initial="{ opacity: 0, y: 40 }"
           :enter="{ opacity: 1, y: 0, transition: { duration: 700, delay: 100 } }"
-          class="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-space-100 mb-4 drop-shadow-md"
+          class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-space-100 mb-3 md:mb-4 drop-shadow-md"
         >
           Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-space-100 to-space-400">Nick</span>
         </h1>
@@ -35,7 +35,7 @@
           v-motion
           :initial="{ opacity: 0, y: 40 }"
           :enter="{ opacity: 1, y: 0, transition: { duration: 700, delay: 220 } }"
-          class="font-mono text-lg md:text-xl text-space-400 tracking-wide mb-6"
+          class="font-mono text-base md:text-xl text-space-400 tracking-wide mb-5 md:mb-6"
         >
           <span class="text-emerald-500">&lt;</span>
           Backend Developer
@@ -46,7 +46,7 @@
           v-motion
           :initial="{ opacity: 0, y: 30 }"
           :enter="{ opacity: 1, y: 0, transition: { duration: 700, delay: 340 } }"
-          class="text-space-300 max-w-lg text-lg md:text-xl leading-relaxed mb-10 font-light drop-shadow-md"
+          class="text-space-300 max-w-lg text-base md:text-xl leading-relaxed mb-8 md:mb-10 font-light drop-shadow-md"
         >
           Crafting high-load backend systems with <span class="text-space-100 font-medium">Java</span> and the <span class="text-space-100 font-medium">Spring</span> ecosystem.
         </p>
@@ -55,57 +55,46 @@
           v-motion
           :initial="{ opacity: 0, y: 20 }"
           :enter="{ opacity: 1, y: 0, transition: { duration: 700, delay: 460 } }"
-          class="flex flex-wrap items-center gap-4"
+          class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 md:gap-4 w-full sm:w-auto"
         >
           <a
             href="#projects"
-            class="group flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-space-950 bg-space-200 hover:bg-white hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-black/20"
+            class="group flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-space-950 bg-space-200 hover:bg-white transition-all duration-300 shadow-lg shadow-black/20"
           >
             View Projects
             <Icon name="heroicons:arrow-right-20-solid" class="text-lg group-hover:translate-x-1 transition-transform" />
           </a>
           <a
             href="#contact"
-            class="group flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-space-300 border border-space-700 bg-space-900/60 backdrop-blur-md hover:bg-space-800/80 hover:text-white hover:border-space-500 hover:-translate-y-0.5 transition-all duration-300"
+            class="group flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-space-300 border border-space-700 bg-space-900/60 backdrop-blur-md hover:bg-space-800/80 hover:text-white transition-all duration-300"
           >
             <Icon name="heroicons:envelope" class="text-lg opacity-70 group-hover:opacity-100 transition-opacity" />
             Contact Me
           </a>
         </div>
 
-        
         <div
           v-motion
           :initial="{ opacity: 0, y: 20 }"
           :enter="{ opacity: 1, y: 0, transition: { duration: 700, delay: 580 } }"
-          class="mt-8 flex flex-wrap items-center gap-2.5 font-mono text-[11px] md:text-xs"
+          class="mt-8 grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 font-mono text-[10px] sm:text-[11px] md:text-xs w-full"
         >
-          <span class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-space-950/60 border border-emerald-500/20 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.08)]">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="flex items-center justify-center sm:justify-start gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-space-950/80 border border-emerald-500/20 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.08)]">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
             Available for hire
           </span>
 
-          <span class="px-3 py-1.5 rounded-full bg-space-950/50 border border-space-800/50 transition-colors duration-500" :class="latency < 30 ? 'text-emerald-400/80' : 'text-amber-400/80'">
+          <span class="px-2.5 sm:px-3 py-1.5 rounded-full text-center bg-space-950/80 border border-space-800/50 transition-colors duration-500" :class="latency < 30 ? 'text-emerald-400/80' : 'text-amber-400/80'">
             Response: ~{{ latency }}ms
           </span>
 
-          <span class="px-3 py-1.5 rounded-full bg-space-950/50 border border-space-800/50 text-space-500">
+          <span class="px-2.5 sm:px-3 py-1.5 rounded-full text-center bg-space-950/80 border border-space-800/50 text-space-400">
             Kyiv, EEST · {{ currentTime }}
           </span>
 
-          <span class="px-3 py-1.5 rounded-full bg-space-950/50 border border-space-800/50 text-space-600">
+          <span class="px-2.5 sm:px-3 py-1.5 rounded-full text-center bg-space-950/80 border border-space-800/50 text-space-400">
             Session: {{ sessionTime }}
           </span>
-        </div>
-
-        <div
-          v-motion
-          :initial="{ opacity: 0 }"
-          :enter="{ opacity: 1, transition: { duration: 700, delay: 700 } }"
-          class="flex items-center gap-2 mt-6 font-mono text-xs text-space-500 bg-space-950/40 px-3 py-1 rounded-md border border-space-900"
-        >
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_7px_rgba(52,211,153,0.7)]"></span>
-          <span>available for backend opportunities</span>
         </div>
 
       </div>
@@ -128,7 +117,12 @@ let heroStart = Date.now();
 
 const updateClock = () => {
   const now = new Date();
-  currentTime.value = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+  currentTime.value = now.toLocaleTimeString('en-US', {
+    timeZone: 'Europe/Kyiv',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  });
 };
 
 const updateSession = () => {

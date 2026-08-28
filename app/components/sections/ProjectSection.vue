@@ -61,29 +61,22 @@
           y: 0,
           transition: { duration: 500, delay: index * 100 }
         }"
-        @mousemove="handleMouseMove($event, index)"
-        @mouseleave="handleMouseLeave(index)"
         class="group relative flex flex-col rounded-3xl bg-gradient-to-b from-space-700/50 to-transparent p-[1px] transition-all duration-500 hover:-translate-y-1.5"
       >
-
-        <div
-          class="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-20"
-          :style="spotlightStyles[index]"
-        ></div>
-
 
         <div
           class="absolute inset-0 bg-space-950/60 backdrop-blur-xl rounded-3xl z-0 group-hover:bg-space-900/80 transition-colors duration-500"
         ></div>
 
-
         <div
-          class="relative z-10 flex flex-col h-full rounded-[23px] bg-space-900/40 border border-space-800 group-hover:border-emerald-500/30 transition-all duration-500 overflow-hidden"
+          class="relative z-10 flex flex-col h-full rounded-[23px] bg-space-900/40 border border-space-800 group-hover:border-emerald-500/20 transition-all duration-500 overflow-hidden"
         >
 
-          <div class="h-1 w-full" :class="project.gradient"></div>
+
+          <div class="h-px w-full bg-space-800 group-hover:bg-emerald-500/20 transition-colors duration-500"></div>
 
           <div class="p-7 md:p-8 flex flex-col h-full">
+
 
             <div class="flex items-center justify-between mb-6 font-mono text-[11px]">
               <div class="flex items-center gap-2">
@@ -129,13 +122,12 @@
               </p>
             </div>
 
-            
+            <!-- Монохромные бейджи -->
             <div class="flex flex-wrap gap-2 mt-6 mb-2">
               <span
                 v-for="tech in project.techStack"
                 :key="tech"
-                class="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium border transition-all duration-300"
-                :class="getTechStyle(tech)"
+                class="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium border border-space-700/40 bg-space-900/30 text-space-400 group-hover:text-space-300 group-hover:border-space-600/50 transition-all duration-300"
               >
                 {{ tech }}
               </span>
@@ -145,7 +137,7 @@
       </article>
     </div>
 
-
+    
     <div
       v-motion
       :initial="{ opacity: 0 }"
@@ -170,7 +162,6 @@ interface Project {
   primaryLanguage: string;
   inDevelopment?: boolean;
   pid: string;
-  gradient: string;
 }
 
 const projects: Project[] = [
@@ -181,8 +172,7 @@ const projects: Project[] = [
     techStack: ['Java', 'Spring Boot', 'Kafka', 'PostgreSQL', 'Redis', 'Vue 3'],
     githubUrl: 'https://github.com/Acrokami/Elei',
     primaryLanguage: 'Java',
-    pid: '8082',
-    gradient: 'bg-gradient-to-r from-emerald-500/80 via-teal-500/60 to-emerald-500/40'
+    pid: '8082'
   },
   {
     title: 'FraudGuard System',
@@ -192,8 +182,7 @@ const projects: Project[] = [
     githubUrl: 'https://github.com/Acrokami',
     primaryLanguage: 'Java',
     inDevelopment: true,
-    pid: '9090',
-    gradient: 'bg-gradient-to-r from-amber-500/80 via-orange-500/60 to-amber-500/40'
+    pid: '9090'
   },
   {
     title: 'Real-time Messanger',
@@ -203,8 +192,7 @@ const projects: Project[] = [
     githubUrl: 'https://github.com/Acrokami',
     primaryLanguage: 'TypeScript',
     inDevelopment: true,
-    pid: '3000',
-    gradient: 'bg-gradient-to-r from-violet-500/80 via-purple-500/60 to-fuchsia-500/40'
+    pid: '3000'
   }
 ];
 
@@ -220,23 +208,6 @@ const filteredProjects = computed(() => {
   );
 });
 
-
-const spotlightStyles = ref<Record<number, any>>({});
-
-const handleMouseMove = (e: MouseEvent, index: number) => {
-  const target = e.currentTarget as HTMLElement;
-  const rect = target.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  spotlightStyles.value[index] = {
-    background: `radial-gradient(600px circle at ${x}px ${y}px, rgba(16,185,129,0.12), transparent 40%)`
-  };
-};
-
-const handleMouseLeave = (index: number) => {
-  spotlightStyles.value[index] = {};
-};
-
 const getLanguageColor = (lang: string) => {
   switch (lang) {
     case 'Java':
@@ -248,24 +219,5 @@ const getLanguageColor = (lang: string) => {
     default:
       return 'bg-space-400';
   }
-};
-
-const getTechStyle = (tech: string) => {
-  const map: Record<string, string> = {
-    'Java': 'border-orange-500/30 text-orange-400 bg-orange-500/10',
-    'Spring Boot': 'border-emerald-500/30 text-emerald-400 bg-emerald-500/10',
-    'Apache Kafka': 'border-purple-400/30 text-purple-400 bg-purple-400/10',
-    'Kafka': 'border-purple-400/30 text-purple-400 bg-purple-400/10',
-    'PostgreSQL': 'border-blue-400/30 text-blue-400 bg-blue-400/10',
-    'Redis': 'border-red-400/30 text-red-400 bg-red-400/10',
-    'Vue 3': 'border-emerald-400/30 text-emerald-400 bg-emerald-400/10',
-    'TypeScript': 'border-blue-400/30 text-blue-400 bg-blue-400/10',
-    'Docker': 'border-blue-500/30 text-blue-400 bg-blue-500/10',
-    'Git': 'border-orange-400/30 text-orange-400 bg-orange-400/10',
-    'STOMP WebSockets': 'border-purple-400/30 text-purple-400 bg-purple-400/10',
-    'Tailwind CSS': 'border-cyan-400/30 text-cyan-400 bg-cyan-400/10',
-    'Integration Testing': 'border-amber-400/30 text-amber-400 bg-amber-400/10',
-  };
-  return map[tech] || 'border-space-600/30 text-space-400 bg-space-600/10';
 };
 </script>

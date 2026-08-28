@@ -7,11 +7,21 @@ export default defineNuxtConfig({
     '@vueuse/motion/nuxt',
     '@nuxt/icon'
   ],
-  
+
   components: [
     {
       path: '~/components',
       pathPrefix: false,
     }
   ],
+
+  
+  build: {
+    transpile: ['three']
+  },
+  vite: {
+    optimizeDeps: {
+      include: ['three']
+    }
+  }
 })

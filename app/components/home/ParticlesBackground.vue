@@ -66,7 +66,6 @@ const normalizeShape = (positions: Float32Array) => {
   return positions;
 };
 
-
 const createHelix = () => {
   const positions = new Float32Array(particleCount * 3);
   for (let i = 0; i < particleCount; i++) {
@@ -79,7 +78,6 @@ const createHelix = () => {
   return normalizeShape(positions);
 };
 
-// ─── 2. DNA (double helix + rungs) ────────────────────────
 const createDNA = () => {
   const positions = new Float32Array(particleCount * 3);
   const seededRandom = getSeededRandom(33333);
@@ -104,7 +102,6 @@ const createDNA = () => {
   for (let r = 0; r < rungCount; r++) {
     const t = r / rungCount;
     const angle = t * Math.PI * 14;
-    const y = t * 4.5 - 2.25;
     const r1x = 0.9 * Math.cos(angle);
     const r1z = 0.9 * Math.sin(angle);
     const r2x = 0.9 * Math.cos(angle + Math.PI);
@@ -112,7 +109,7 @@ const createDNA = () => {
     for (let j = 0; j < pointsPerRung; j++) {
       const alpha = seededRandom();
       positions[idx++] = r1x + (r2x - r1x) * alpha;
-      positions[idx++] = y + (seededRandom() - 0.5) * 0.04;
+      positions[idx++] = (t * 4.5 - 2.25) + (seededRandom() - 0.5) * 0.04;
       positions[idx++] = r1z + (r2z - r1z) * alpha;
     }
   }
@@ -122,7 +119,6 @@ const createDNA = () => {
   }
   return normalizeShape(positions);
 };
-
 
 const createTrefoilKnot = () => {
   const positions = new Float32Array(particleCount * 3);
@@ -206,7 +202,6 @@ const createTesseract = () => {
   return normalizeShape(positions);
 };
 
-
 const createInfinity = () => {
   const positions = new Float32Array(particleCount * 3);
   const seededRandom = getSeededRandom(11111);
@@ -224,12 +219,10 @@ const createInfinity = () => {
   return normalizeShape(positions);
 };
 
-
 const createAtom = () => {
   const positions = new Float32Array(particleCount * 3);
   const seededRandom = getSeededRandom(66666);
   let idx = 0;
-
 
   const nucleusCount = 300;
   for (let i = 0; i < nucleusCount; i++) {
@@ -240,7 +233,6 @@ const createAtom = () => {
     positions[idx++] = r * Math.sin(phi) * Math.sin(theta);
     positions[idx++] = r * Math.cos(phi);
   }
-
 
   const orbitals = [
     { rx: 1, ry: 1, rz: 0.15, rotX: 0, rotY: 0 },
@@ -257,7 +249,6 @@ const createAtom = () => {
       const y = orb.ry * Math.sin(t);
       const z = orb.rz * Math.sin(t * 3) * 0.5;
 
-      // Rotate orbital
       const y1 = y * Math.cos(orb.rotX) - z * Math.sin(orb.rotX);
       const z1 = y * Math.sin(orb.rotX) + z * Math.cos(orb.rotX);
       const x1 = x * Math.cos(orb.rotY) - z1 * Math.sin(orb.rotY);
@@ -274,7 +265,6 @@ const createAtom = () => {
   }
   return normalizeShape(positions);
 };
-
 
 const createButterfly = () => {
   const positions = new Float32Array(particleCount * 3);
@@ -297,7 +287,6 @@ const createButterfly = () => {
   return normalizeShape(positions);
 };
 
-
 const createHyperboloid = () => {
   const positions = new Float32Array(particleCount * 3);
   const seededRandom = getSeededRandom(99999);
@@ -318,7 +307,10 @@ const SHAPE_RADIUS = 2.7;
 const DESIRED_OFFSET_X = 2.8;
 
 const computeSafeOffsetX = (): number => {
-  if (!camera) return 0;
+  if (!camera || !containerRef.value) return 0;
+  const isMobile = containerRef.value.clientWidth < 768;
+  if (isMobile) return 0;
+
   const vFOV = (camera.fov * Math.PI) / 180;
   const halfHeight = Math.tan(vFOV / 2) * camera.position.z;
   const halfWidth = halfHeight * camera.aspect;
@@ -336,6 +328,13 @@ const handleResize = () => {
   const w = containerRef.value.clientWidth;
   const h = containerRef.value.clientHeight;
   if (w === 0 || h === 0) return;
+
+  const isMobile = w < 768;
+  camera.position.z = isMobile ? 15 : 12;
+  if (material) {
+    material.size = isMobile ? 0.055 : 0.08;
+  }
+
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
   renderer.setSize(w, h);
@@ -367,31 +366,33 @@ const animate = () => {
   }
 
   if (shapes.length > 0 && geometry && baseColors) {
-    const currentShape = shapes[shapeIndex]!;
-    const nextShape = shapes[nextShapeIndex]!;
+    const currentShape = shapes[shapeIndex];
+    const nextShape = shapes[nextShapeIndex];
 
-    const positionAttr = geometry.getAttribute("position") as THREE.BufferAttribute | undefined;
-    if (positionAttr) {
-      const positions = positionAttr.array as Float32Array;
-      for (let i = 0; i < positions.length / 3; i++) {
-        const i3 = i * 3;
-        const x1 = currentShape[i3]!;
-        const y1 = currentShape[i3 + 1]!;
-        const z1 = currentShape[i3 + 2]!;
+    if (currentShape && nextShape) {
+      const positionAttr = geometry.getAttribute("position") as THREE.BufferAttribute | undefined;
+      if (positionAttr) {
+        const positions = positionAttr.array as Float32Array;
+        for (let i = 0; i < positions.length / 3; i++) {
+          const i3 = i * 3;
+          const x1 = currentShape[i3]!;
+          const y1 = currentShape[i3 + 1]!;
+          const z1 = currentShape[i3 + 2]!;
 
-        const x2 = nextShape[i3]!;
-        const y2 = nextShape[i3 + 1]!;
-        const z2 = nextShape[i3 + 2]!;
+          const x2 = nextShape[i3]!;
+          const y2 = nextShape[i3 + 1]!;
+          const z2 = nextShape[i3 + 2]!;
 
-        const nx = x1 * (1 - t) + x2 * t;
-        const ny = y1 * (1 - t) + y2 * t;
-        const nz = z1 * (1 - t) + z2 * t;
+          const nx = x1 * (1 - t) + x2 * t;
+          const ny = y1 * (1 - t) + y2 * t;
+          const nz = z1 * (1 - t) + z2 * t;
 
-        positions[i3] = isNaN(nx) ? 0 : nx;
-        positions[i3 + 1] = isNaN(ny) ? 0 : ny;
-        positions[i3 + 2] = isNaN(nz) ? 0 : nz;
+          positions[i3] = isNaN(nx) ? 0 : nx;
+          positions[i3 + 1] = isNaN(ny) ? 0 : ny;
+          positions[i3 + 2] = isNaN(nz) ? 0 : nz;
+        }
+        positionAttr.needsUpdate = true;
       }
-      positionAttr.needsUpdate = true;
     }
 
     const colorAttr = geometry.getAttribute("color") as THREE.BufferAttribute | undefined;
@@ -430,10 +431,12 @@ onMounted(() => {
   const container = containerRef.value;
   if (!container) return;
 
+  const isMobile = container.clientWidth < 768;
+
   scene = new THREE.Scene();
 
   camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
-  camera.position.z = 12;
+  camera.position.z = isMobile ? 15 : 12;
 
   renderer = new THREE.WebGLRenderer({
     alpha: true,
@@ -473,7 +476,7 @@ onMounted(() => {
   geometry.setAttribute("color", new THREE.BufferAttribute(dynamicColors, 3));
 
   material = new THREE.PointsMaterial({
-    size: 0.08,
+    size: isMobile ? 0.055 : 0.08,
     vertexColors: true,
     transparent: true,
     opacity: 0.9,

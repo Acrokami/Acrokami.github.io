@@ -11,7 +11,7 @@
 
   <p>Personal portfolio & backend engineering showcase.</p>
 
-  <a href="https://acrokami.dev" target="_blank"><strong>Live Site ↗</strong></a>
+  <a href="https://acrokami.github.io/" target="_blank"><strong>Live Site ↗</strong></a>
 
 </div>
 

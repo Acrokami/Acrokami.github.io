@@ -11,7 +11,7 @@
 
   <p>Personal portfolio & backend engineering showcase.</p>
 
-  <a href="https://acrokami.github.io/" target="_blank"><strong>Live Site ↗</strong></a>
+  <a href="https://acrokami.dev" target="_blank"><strong>Live Site ↗</strong></a>
 
 </div>
 
@@ -67,24 +67,25 @@ Touch- and hover-enabled skill grid with detailed breakdown cards detailing expe
 ## Project Structure
 
 ```text
-app/
 ├── components/
+│   ├── common/
 │   ├── home/
 │   │   ├── HeroSection.vue
+│   │   └── ParticlesBackground.vue
+│   ├── layout/
+│   │   ├── AppFooter.vue
+│   │   ├── AppHeader.vue
+│   │   └── DotGridOverlay.vue
+│   ├── sections/
 │   │   ├── AboutSection.vue
-│   │   ├── ProjectSection.vue
 │   │   ├── ContactSection.vue
-│   │   └── ParticlesBackground.vue    # Optimized Three.js canvas
-│   └── layout/
-│       ├── AppHeader.vue
-│       ├── AppFooter.vue
-│       ├── ScrollProgress.vue
-│       └── DotGridOverlay.vue
+│   │   ├── ProjectSection.vue
+│   │   └── TerminalSnippet.vue
+│   └── ScrollProgress.vue
 ├── public/
 │   └── og-image.png
 ├── app.vue
 └── nuxt.config.ts
-
 
 ```
 

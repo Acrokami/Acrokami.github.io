@@ -73,7 +73,7 @@
           </a>
         </div>
 
-        <!-- Live Status Pills -->
+        
         <div
           v-motion
           :initial="{ opacity: 0, y: 20 }"

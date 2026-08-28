@@ -1,14 +1,16 @@
 <template>
-  <div class="bg-space-900 min-h-screen text-space-50 font-sans relative flex flex-col">
+  <div class="bg-space-950 min-h-screen text-space-200 font-sans relative flex flex-col selection:bg-emerald-500/30 selection:text-emerald-100">
+    <ScrollProgress />
+    <DotGridOverlay />
     <AppHeader />
-    <HeroSection />
-    <TechMarquee />
-    <AboutSection />
-    <LeetCodeWidget />
-    <StackSection />
-    <ProjectSection />
-    <ContactSection />
+    <main class="flex-1 relative z-10">
+      <HeroSection />
+      <AboutSection />
+      <ProjectSection />
+      <ContactSection />
+    </main>
     <AppFooter />
+
   </div>
 </template>
 
@@ -31,7 +33,8 @@ useSeoMeta({
 
 <style>
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+  background-color: #020617;
 }
 
 @media (prefers-reduced-motion: reduce) {

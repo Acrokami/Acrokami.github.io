@@ -27,8 +27,9 @@ let shapeIndex = 0;
 let nextShapeIndex = 1;
 let shapeTimer = 0;
 
-const SHAPE_DURATION = 14;
-const TRANSITION_DURATION = 4;
+// Ускорили цикл: фигура держится 9 сек, переход 2.5 сек
+const SHAPE_DURATION = 9;
+const TRANSITION_DURATION = 2.5;
 const TOTAL_CYCLE = SHAPE_DURATION + TRANSITION_DURATION;
 
 const prefersReducedMotion =
@@ -348,8 +349,9 @@ const animate = () => {
   time += 0.016;
   shapeTimer += 0.016;
 
+  // Ускоренное вращение: 0.04 -> 0.065
   if (points) {
-    points.rotation.y = time * 0.04;
+    points.rotation.y = time * 0.065;
   }
 
   if (shapeTimer >= TOTAL_CYCLE) {

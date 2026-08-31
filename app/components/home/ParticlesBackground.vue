@@ -17,6 +17,7 @@ let material: THREE.PointsMaterial | null = null;
 let animationFrameId = 0;
 let resizeObserver: ResizeObserver | null = null;
 let isAnimating = false;
+let lastFrameTime = 0;
 
 const particleCount = 2500;
 let shapes: Float32Array[] = [];
@@ -27,7 +28,6 @@ let shapeIndex = 0;
 let nextShapeIndex = 1;
 let shapeTimer = 0;
 
-// Ускорили цикл: фигура держится 9 сек, переход 2.5 сек
 const SHAPE_DURATION = 9;
 const TRANSITION_DURATION = 2.5;
 const TOTAL_CYCLE = SHAPE_DURATION + TRANSITION_DURATION;
@@ -103,6 +103,7 @@ const createDNA = () => {
   for (let r = 0; r < rungCount; r++) {
     const t = r / rungCount;
     const angle = t * Math.PI * 14;
+    const y = t * 4.5 - 2.25;
     const r1x = 0.9 * Math.cos(angle);
     const r1z = 0.9 * Math.sin(angle);
     const r2x = 0.9 * Math.cos(angle + Math.PI);
@@ -110,7 +111,7 @@ const createDNA = () => {
     for (let j = 0; j < pointsPerRung; j++) {
       const alpha = seededRandom();
       positions[idx++] = r1x + (r2x - r1x) * alpha;
-      positions[idx++] = (t * 4.5 - 2.25) + (seededRandom() - 0.5) * 0.04;
+      positions[idx++] = y + (seededRandom() - 0.5) * 0.04;
       positions[idx++] = r1z + (r2z - r1z) * alpha;
     }
   }
@@ -346,12 +347,18 @@ const animate = () => {
   if (!isAnimating) return;
   animationFrameId = requestAnimationFrame(animate);
 
-  time += 0.016;
-  shapeTimer += 0.016;
+  // Delta time: реальное время между кадрами, кап на 100ms при лаге
+  const now = performance.now();
+  const rawDelta = (now - lastFrameTime) / 1000;
+  const delta = Math.min(rawDelta, 0.1);
+  lastFrameTime = now;
 
-  // Ускоренное вращение: 0.04 -> 0.065
+  time += delta;
+  shapeTimer += delta;
+
+  // Вращение: ~0.6 рад/сек, одинаково во всех браузерах
   if (points) {
-    points.rotation.y = time * 0.065;
+    points.rotation.y += delta * 0.6;
   }
 
   if (shapeTimer >= TOTAL_CYCLE) {
@@ -424,6 +431,7 @@ const handleVisibilityChange = () => {
   if (document.hidden) {
     stopAnimation();
   } else {
+    lastFrameTime = performance.now();
     isAnimating = true;
     animate();
   }
@@ -498,6 +506,7 @@ onMounted(() => {
   if (prefersReducedMotion) {
     renderer.render(scene, camera);
   } else {
+    lastFrameTime = performance.now();
     isAnimating = true;
     animate();
     document.addEventListener("visibilitychange", handleVisibilityChange);
